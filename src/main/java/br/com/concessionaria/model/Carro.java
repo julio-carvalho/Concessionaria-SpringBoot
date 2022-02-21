@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TB_CARRO")
@@ -32,12 +33,15 @@ public class Carro {
 	
 	@Column(name = "ds_marca")
 	private String marca;
-		
+	
+	@Transient
+	private boolean disponivel;
+	
 	public Carro() {
 		super();
 	}
 
-	public Carro(Long id, String categoria, double valor, Integer ano, String modelo, String marca) {
+	public Carro(Long id, String categoria, double valor, Integer ano, String modelo, String marca, boolean disponivel) {
 		super();
 		this.id = id;
 		this.categoria = categoria;
@@ -45,6 +49,7 @@ public class Carro {
 		this.ano = ano;
 		this.modelo = modelo;
 		this.marca = marca;
+		this.disponivel = disponivel;
 	}
 
 	public Long getId() {
@@ -94,4 +99,14 @@ public class Carro {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
+	
+	public boolean isDisponivel() {
+		return disponivel;
+	}
+
+	public void setDisponivel(boolean disponivel) {
+		this.disponivel = disponivel;
+	}
+	
+	
 }

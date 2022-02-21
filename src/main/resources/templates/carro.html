@@ -4,11 +4,12 @@
 <meta charset="ISO-8859-1">
 <title>Carro :: Concessionária</title>
 
-<link rel="stylesheet" href="../static/css/estilo.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
+	
+<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
 </head>
 <body>
 		<div class="container my-2">
@@ -22,6 +23,7 @@
 					<th>Ano</th>
 					<th>Modelo</th>
 					<th>Marca</th>
+					<th>Disponivel</th>
 					<th>Opcoes</th>
 				</tr>
 			</thead>
@@ -33,9 +35,11 @@
 					<td th:text="${carro.ano}"></td>
 					<td th:text="${carro.modelo}"></td>
 					<td th:text="${carro.marca}"></td>
+					<td th:text="${carro.disponivel}"></td>
 					<td>
 						<a th:href="@{/carro/{id}(id=${carro.id})}" class = "btn btn-primary">Alterar</a>
 						<a th:href="@{/carro/excluir/{id}(id=${carro.id})}" class = "btn btn-danger">Excluir</a>
+						<a th:href="@{/carro/venda/{id}(id=${carro.id})}" class="btn btn-success">Vender</a>
 					</td>
 				</tr>
 			</tbody>

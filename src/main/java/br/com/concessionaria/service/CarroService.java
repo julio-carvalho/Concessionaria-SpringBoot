@@ -16,7 +16,7 @@ public class CarroService {
 		this.carroRepository = carroRepository;
 	}
 	
-	// criar cliente
+	// criar carro
 	public boolean create(Carro carro) {
 		try {
 			this.carroRepository.save(carro);
@@ -24,5 +24,13 @@ public class CarroService {
 		} catch(Exception e) {
 			return false;
 		}
+	}
+	
+	public void alteraCarroDisponivel(Carro carro) {
+		carro.setDisponivel(true);
+	}
+	
+	public void alteraCarro(Carro carro) {
+		carro.setDisponivel(false);
 	}
 }
