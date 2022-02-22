@@ -22,6 +22,8 @@
 					<th>CPF</th>
 					<th>E-mail</th>
 					<th>Telefone</th>
+					<th>Cliente Novo</th>
+					<th>Opcoes</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,6 +33,7 @@
 					<td th:text="${cliente.cpf}"></td>
 					<td th:text="${cliente.email}"></td>
 					<td th:text="${cliente.telefone}"></td>
+					<td th:text="${cliente.primeira}"></td>
 					<td>
 						<a th:href="@{/cliente/{id}(id=${cliente.id})}" class = "btn btn-primary">Alterar</a>
 						<a th:href="@{/cliente/excluir/{id}(id=${cliente.id})}" class = "btn btn-danger">Excluir</a>
@@ -38,6 +41,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<hr>
+		<a th:href="@{/}" class="btn btn-outline-primary">Retornar para o Menu</a>
+		<a th:href="@{/cliente/cadastro}" class="btn btn-outline-primary">Cadastrar Cliente</a>
 	</div>
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.concessionaria.dto.CarroDTO;
 import br.com.concessionaria.dto.ClienteDTO;
 import br.com.concessionaria.model.Carro;
 import br.com.concessionaria.model.Cliente;
@@ -22,8 +23,6 @@ import br.com.concessionaria.service.CarroService;
 @Controller
 @RequestMapping("/carro")
 public class CarroController {
-	
-	private double somaVendidos = 0;
 	
 	@Autowired
 	private CarroService carroService;
@@ -47,9 +46,10 @@ public class CarroController {
 	
 	@PostMapping("/cadastro")
 	public String salvarCarro(@ModelAttribute("carro") Carro carro) {
-		
+		carro.setDisponivel(true);
 		carroRepository.save(carro);
-		carroService.alteraCarroDisponivel(carro);
+		CarroDTO carroDTO = carroService.transformaDTO(carro);
+		
 		return "redirect:/carro";
 	}
 	
@@ -90,20 +90,41 @@ public class CarroController {
 		
 		System.out.print(buscaCarroId.get().isDisponivel());
 		if(!buscaCarroId.get().isDisponivel()) {
-			return "redirect:/carro?carroindisponivel";
+			return "redirect:/carro/venda/{id}#cg";
 		}
 		
 		Cliente cli = clienteRepository.findByCpf(clienteDTO.getCpf());
 		
 		if(cli == null) {
-			return "redirect:/carro?clienteinvalido";
+			return "redirect:/carro/venda/{id}#bg";
 		}
 		
-		carroService.alteraCarro(buscaCarroId.get());
+		if(cli.isPrimeira()) {
+			System.out.println("entrou aqui");
+			double valor = buscaCarroId.get().getValor();
+			System.out.println("Valor: " + valor);
+			
+			double valorFinal = valor * (1 +(1 / 100));
+			System.out.println(valorFinal);
+			buscaCarroId.get().setValor(valorFinal);			
+		}
 		
-		this.somaVendidos += buscaCarroId.get().getValor();
+		buscaCarroId.get().setDisponivel(false);
+		carroRepository.save(buscaCarroId.get());
 		
-		return "redirect:/";
+		cli.setPrimeira(false);
+		clienteRepository.save(cli);
+		
+		return "redirect:/carro?carrovendido";
+		
+	}
+	
+	@GetMapping("/totalvenda")
+	public String getTotalVendas(ModelMap model) {
+		double valorTotal = carroRepository.valor();
+		
+		model.addAttribute("valorvendas", valorTotal);
+		return "total-vendas";
 	}
 	
 	public CarroService getCarroService() {

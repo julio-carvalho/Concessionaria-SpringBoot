@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Total de Vendas :: Concessionaria</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+	
+<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+</head>
+<body>
+		<div class="container my-2">
+		<h1>Valor de Vendas de Carro</h1>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Total: </th>
+					<th th:text="${valorvendas}"></th>
+				</tr>
+			</thead>
+		</table>
+		<hr>
+		<a th:href="@{/carro}" class="btn btn-outline-primary">Ir para a Lista de Carros</a>
+		<a th:href="@{/}" class="btn btn-outline-primary">Ir para o Menu</a>
+	</div>
+</body>
+</html>

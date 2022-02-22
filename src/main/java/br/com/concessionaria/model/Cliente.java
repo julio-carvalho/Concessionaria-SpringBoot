@@ -1,8 +1,5 @@
 package br.com.concessionaria.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TB_CLIENTE")
@@ -34,21 +30,21 @@ public class Cliente {
 	@Column(name = "ds_telefone")
 	private String telefone;
 	
-	@Transient
-	private List<Long> listaIdCarros;
+	//boolean para validar se é a primeira compra do cliente
+	private boolean primeira;
 	
 	public Cliente() {
 		super();
 	}
 	
-	public Cliente(Long id, String nome, String cpf, String email, String telefone) {
+	public Cliente(Long id, String nome, String cpf, String email, String telefone, boolean primeira) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.telefone = telefone;
-		this.listaIdCarros = new ArrayList<Long>();
+		this.primeira = primeira;
 	}
 
 
@@ -91,12 +87,13 @@ public class Cliente {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
-	public List<Long> getListaIdCarros() {
-		return listaIdCarros;
+
+	public boolean isPrimeira() {
+		return primeira;
 	}
 
-	public void setListaIdCarros(List<Long> listaIdCarros) {
-		this.listaIdCarros = listaIdCarros;
-	}	
+	public void setPrimeira(boolean primeira) {
+		this.primeira = primeira;
+	}
+
 }

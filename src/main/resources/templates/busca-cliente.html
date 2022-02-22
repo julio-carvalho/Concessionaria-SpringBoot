@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Busca Cliente :: Concessionaria</title>
+<title>Buscar Cliente :: Concessionaria</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
 
-<link rel="stylesheet" href="../static/css/index-estilo.css" th:href="@{/css/estilo.css}">
+<link rel="stylesheet" href="../static/css/busca.css" th:href="@{/css/busca.css}">
 </head>
 <body>
-	<div class="wrapper">
-		<h2>Busca Cliente</h2>
+	<div class="container my-2">
+		<h2>Buscar Cliente</h2>
 		<hr>
 		<form method="POST" th:object="${clienteDTO}">
   		<div class="row">
@@ -20,9 +20,31 @@
 		     	Digite o CPF do cliente:
 		     	<input type="text" class="form-control" placeholder="CPF" th:field="*{cpf}">
 		     	<button type="submit" class="btn btn-info col-2">Buscar</button>
+		    	
 		    </div>
+		    
  		</div>
+ 		
 	</form>
+		<hr>
+		<a th:href="@{/carro}" class="btn btn-outline-primary">Retornar para a Lista de Carros</a>
+		<a th:href="@{/cliente/cadastro}" class="btn btn-outline-primary">Cadastrar Cliente</a>
+		<a th:href="@{/}" class="btn btn-outline-primary">Ir para o Menu</a>
+		
+	</div>
+	
+	<div id="bg"></div>
+	<div class="box">
+	
+		<img th:src="@{/img/errocliente.png}"> <a href="" id="close">X</a>
+
+	</div>
+	
+	<div id="cg"></div>
+	<div class="boxcg">
+	
+		<img th:src="@{/img/errocarro.png}"> <a href="" id="close">X</a>
+
 	</div>
 </body>
 </html>

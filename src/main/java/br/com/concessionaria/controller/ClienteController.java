@@ -35,6 +35,7 @@ public class ClienteController {
 	
 	@PostMapping("/cadastro")
 	public String salvarCliente(@ModelAttribute("cliente") Cliente cliente) {
+		cliente.setPrimeira(true);
 		clienteRepository.save(cliente);
 		
 		return "redirect:/cliente";

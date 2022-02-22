@@ -3,6 +3,7 @@ package br.com.concessionaria.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.concessionaria.dto.CarroDTO;
 import br.com.concessionaria.model.Carro;
 import br.com.concessionaria.repository.CarroRepository;
 
@@ -26,11 +27,18 @@ public class CarroService {
 		}
 	}
 	
-	public void alteraCarroDisponivel(Carro carro) {
-		carro.setDisponivel(true);
+
+	public CarroDTO transformaDTO(Carro carro) {
+		CarroDTO carroDTO = new CarroDTO();
+		carroDTO.setId(carro.getId());
+		carroDTO.setAno(carro.getAno());
+		carroDTO.setCategoria(carro.getCategoria());
+		carroDTO.setValor(carro.getValor());
+		carroDTO.setModelo(carro.getModelo());
+		carroDTO.setMarca(carro.getMarca());
+		carroDTO.setDisponivel(true);
+		return carroDTO;
 	}
 	
-	public void alteraCarro(Carro carro) {
-		carro.setDisponivel(false);
-	}
+
 }
