@@ -108,7 +108,7 @@ public class CarroController {
 			double valor = buscaCarroId.get().getValor();
 			System.out.println("Valor: " + valor);
 			
-			double valorFinal = valor * (1 -(1 / 100));
+			double valorFinal = valor * 0.99;
 			System.out.println(valorFinal);
 			buscaCarroId.get().setValor(valorFinal);			
 		}
