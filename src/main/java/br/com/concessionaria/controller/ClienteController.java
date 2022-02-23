@@ -35,10 +35,16 @@ public class ClienteController {
 	
 	@PostMapping("/cadastro")
 	public String salvarCliente(@ModelAttribute("cliente") Cliente cliente) {
-		cliente.setPrimeira(true);
-		clienteRepository.save(cliente);
+		if(this.validaCadastroCliente(cliente)) {
+			cliente.setPrimeira(true);
+			clienteRepository.save(cliente);
+			
+			return "redirect:/cliente";
+		} else {
+			return "redirect:/cliente/cadastro?invalido";
+		}
 		
-		return "redirect:/cliente";
+
 	}
 	
 	@GetMapping("/{id}")
@@ -67,5 +73,18 @@ public class ClienteController {
 	
 	public ClienteService getClienteService() {
 		return new ClienteService(this.clienteRepository);
+	}
+	
+	public boolean validaCadastroCliente(Cliente cliente) {
+		if(cliente.getNome().isEmpty() || cliente.getNome() == null)
+			return false;
+		if(cliente.getCpf().isEmpty() || cliente.getCpf() == null)
+			return false;
+		if(cliente.getEmail().isEmpty() || cliente.getEmail() == null)
+			return false;
+		if(cliente.getTelefone().isEmpty() || cliente.getTelefone() == null)
+			return false;
+		
+		return true;
 	}
 }

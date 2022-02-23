@@ -46,11 +46,15 @@ public class CarroController {
 	
 	@PostMapping("/cadastro")
 	public String salvarCarro(@ModelAttribute("carro") Carro carro) {
-		carro.setDisponivel(true);
-		carroRepository.save(carro);
-		CarroDTO carroDTO = carroService.transformaDTO(carro);
-		
-		return "redirect:/carro";
+		if(this.validaCadastroCarro(carro)) {
+			carro.setDisponivel(true);
+			carroRepository.save(carro);
+			CarroDTO carroDTO = carroService.transformaDTO(carro);
+			
+			return "redirect:/carro";
+		} else {
+			return "redirect:/carro/cadastro?invalido";
+		}
 	}
 	
 	@GetMapping("/{id}")
@@ -104,7 +108,7 @@ public class CarroController {
 			double valor = buscaCarroId.get().getValor();
 			System.out.println("Valor: " + valor);
 			
-			double valorFinal = valor * (1 +(1 / 100));
+			double valorFinal = valor * (1 -(1 / 100));
 			System.out.println(valorFinal);
 			buscaCarroId.get().setValor(valorFinal);			
 		}
@@ -129,6 +133,20 @@ public class CarroController {
 	
 	public CarroService getCarroService() {
 		return new CarroService(this.carroRepository);
+	}
+	
+	//valida informações do cadastro
+	public boolean validaCadastroCarro(Carro carro) {
+		if(carro.getCategoria().isEmpty() || carro.getCategoria() == null)
+			return false;
+		if(carro.getAno() == null)
+			return false;
+		if(carro.getMarca().isEmpty() || carro.getMarca() == null)
+			return false;
+		if(carro.getModelo().isEmpty() || carro.getModelo() == null)
+			return false;
+		
+		return true;
 	}
 	
 }
